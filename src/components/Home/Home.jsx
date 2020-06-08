@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import PeriodForm from '../PeriodForm/PeriodForm';
 import Result from '../Result/Result';
 
 class Home extends Component {
@@ -7,35 +8,69 @@ class Home extends Component {
     super(props);
     this.state = {
       error: null,
-      isLoaded: false,
+      loading: false,
       data: [],
+      startDate: new Date(),
+      endDate: new Date(),
     };
+    this.handleStartDate = this.handleStartDate.bind(this);
+    this.handleEndDate = this.handleEndDate.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount() {
-    fetch('https://api.sbif.cl/api-sbifv3/recursos_api/dolar/periodo/2010/01/dias_i/04/2010/01/dias_f/05?apikey=9c84db4d447c80c74961a72245371245cb7ac15f&formato=json')
+  handleStartDate(date) {
+    this.setState({
+      startDate: date,
+    });
+  };
+
+  handleEndDate(date) {
+    this.setState({
+      endDate: date,
+    });
+  }
+
+  getMonth = (date) => date.getMonth() + 1;
+
+  handleSubmit() {
+    const { startDate, endDate } = this.state;
+    const apikey = '9c84db4d447c80c74961a72245371245cb7ac15f';
+    const url = 'https://api.sbif.cl/api-sbifv3/recursos_api/dolar/periodo/';
+    
+    this.setState({
+      loading: true,
+    });
+    fetch(`${url}${startDate.getFullYear()}/${this.getMonth(startDate)}/dias_i/${startDate.getDate()}/${endDate.getFullYear()}/${this.getMonth(endDate)}/dias_f/${endDate.getDate()}?apikey=${apikey}&formato=json`)
       .then(res => res.json())
       .then(
         (result) => {
           this.setState({
-            isLoaded: true,
+            loading: false,
             data: result.Dolares,
           });
         },
         (error) => {
           this.setState({
-            isLoaded: true,
+            loading: false,
             error
           });
         }
       )
   }
 
-
   render() {
-    const { data } = this.state;
+    const { data, startDate, endDate, loading } = this.state;
     return (
-      <div>
+      <div id="home">
+        <PeriodForm
+          startDate={startDate}
+          endDate={endDate}
+          handleStartDate={e => this.handleStartDate(e)}
+          handleEndDate={e => this.handleEndDate(e)}
+          handleSubmit={this.handleSubmit}
+          disabled={loading}
+        />
+        {loading && <div>Loading</div>}
         {data.length > 0 && <Result data={data} />}               
       </div>
     );
