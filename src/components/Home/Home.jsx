@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { formatString, getMax, getMin, getAverage } from '../../helpers';
+
+import Result from '../Result/Result';
 
 class Home extends Component {
   constructor(props) {
@@ -18,9 +19,7 @@ class Home extends Component {
         (result) => {
           this.setState({
             isLoaded: true,
-            data: result.Dolares.map((node) => {
-              return formatString(node.Valor);
-            })
+            data: result.Dolares,
           });
         },
         (error) => {
@@ -37,19 +36,7 @@ class Home extends Component {
     const { data } = this.state;
     return (
       <div>
-        {data.length > 0 && (
-          <div>
-            <div>
-              máximo: {getMax(data)}
-            </div>
-            <div>
-              mínimo: {getMin(data)}
-            </div>
-            <div>
-              promedio: {getAverage(data)}
-            </div>
-          </div>
-        )}               
+        {data.length > 0 && <Result data={data} />}               
       </div>
     );
   }
