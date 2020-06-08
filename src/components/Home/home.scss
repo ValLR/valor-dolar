@@ -16,6 +16,15 @@ $grey:#616161;
     opacity: 0.2;
   }
 
+  .error {
+    padding: 4% 0;
+    color: whitesmoke;
+    font-weight: 500;
+    background: #94e9cb;
+    margin: 4% 15%;
+    font-size: 20px;
+  }
+
   .loader-container {
     display: flex;
     justify-content: center;

@@ -8,7 +8,7 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      error: null,
+      error: undefined,
       loading: false,
       data: [],
       startDate: new Date(),
@@ -40,6 +40,7 @@ class Home extends Component {
     
     this.setState({
       loading: true,
+      error: undefined,
     });
     fetch(`${url}${startDate.getFullYear()}/${this.getMonth(startDate)}/dias_i/${startDate.getDate()}/${endDate.getFullYear()}/${this.getMonth(endDate)}/dias_f/${endDate.getDate()}?apikey=${apikey}&formato=json`)
       .then(res => res.json())
@@ -53,14 +54,14 @@ class Home extends Component {
         (error) => {
           this.setState({
             loading: false,
-            error
+            error,
           });
         }
       )
   }
 
   render() {
-    const { data, startDate, endDate, loading } = this.state;
+    const { data, error, startDate, endDate, loading } = this.state;
     return (
       <div id="home">
         <PeriodForm
@@ -73,10 +74,11 @@ class Home extends Component {
         />
         {loading && (
           <div className="loader-container">
-            <div class="loader"></div>
+            <div className="loader"></div>
           </div>
         )}
-        <div className={loading && 'loading'}>
+        {error && <div className="error">Se ha producido un error, por favor vuelva a intentarlo más tarde.</div> }
+        <div className={loading ? 'loading' : ''}>
           {data.length > 0 && <Result data={data} />}               
         </div>
       </div>
