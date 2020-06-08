@@ -15,7 +15,7 @@ export function getMin(array) {
 }
 
 export function getAverage(array) {
-  return formatValue(filterByValue(array).reduce((a, b) => a + b, 0) / array.length);
+  return formatValue((filterByValue(array).reduce((a, b) => a + b, 0) / array.length).toFixed(2));
 }
 
 export function filterByValue(array) {

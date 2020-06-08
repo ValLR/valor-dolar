@@ -1,0 +1,17 @@
+#indicators {
+  display: flex;
+  justify-content: space-around;
+  padding: 5% 15%;
+
+  div.section {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    
+    div.subtitle {
+      margin-bottom: 5px;
+      font-weight: bold;
+      font-size: 30px;
+    }
+  }
+}

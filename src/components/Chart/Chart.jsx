@@ -6,8 +6,8 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
 } from 'recharts';
+import './chart.scss';
 
 class Chart extends Component {
   render() {
@@ -15,7 +15,7 @@ class Chart extends Component {
     return (
       <div id="chart">
         <LineChart
-          width={500}
+          width={700}
           height={300}
           data={data}
           margin={{
@@ -31,8 +31,7 @@ class Chart extends Component {
             }}
           />
           <Tooltip formatter={(value) => new Intl.NumberFormat('es').format(value)} />
-          <Legend />
-          <Line type="monotone" dataKey="Valor" stroke="#8884d8" activeDot={{ r: 8 }} />
+          <Line type="monotone" dataKey="Valor" stroke="#04044c" activeDot={{ r: 8 }} />
         </LineChart>
       </div>
     );

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import PeriodForm from '../PeriodForm/PeriodForm';
 import Result from '../Result/Result';
+import './home.scss'
 
 class Home extends Component {
   constructor(props) {
@@ -70,8 +71,14 @@ class Home extends Component {
           handleSubmit={this.handleSubmit}
           disabled={loading}
         />
-        {loading && <div>Loading</div>}
-        {data.length > 0 && <Result data={data} />}               
+        {loading && (
+          <div className="loader-container">
+            <div class="loader"></div>
+          </div>
+        )}
+        <div className={loading && 'loading'}>
+          {data.length > 0 && <Result data={data} />}               
+        </div>
       </div>
     );
   }

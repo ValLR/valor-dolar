@@ -1,0 +1,37 @@
+.form-row {
+  display: flex;
+  justify-content: center;
+
+  .react-datepicker__input-container {
+    margin-left: 5px;
+  }
+
+  button.submit {
+    margin-left: 8px;
+    font-size: 100%;
+    font-family: inherit;
+    color: whitesmoke;
+    cursor: pointer;
+    background: #bdbdbd;
+    font-weight: 500;
+    border: none;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    width: 95px;
+    
+    &:hover {
+      background-color: #2EE59D;
+      box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    &:disabled {
+      background-color: whitesmoke;
+      color: white;
+      cursor: wait;
+
+    }
+  }
+}
